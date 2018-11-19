@@ -1,0 +1,17 @@
+filebeat:
+  prospectors:
+    -
+      paths:
+        - /var/log/apache2/fb_access.log
+      input_type: log
+      document_type: apache
+      scan_frequency: 10s
+    -
+      paths:
+        - /var/log/apache2/fb_error.log
+      input_type: log
+      document_type: app_error
+      scan_frequency: 10s
+output:
+  logstash:
+    hosts: ["logstash:5044"]

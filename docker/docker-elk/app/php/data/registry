@@ -1,0 +1,1 @@
+[{"source":"/var/log/apache2/fb_access.log","offset":5177,"FileStateOS":{"inode":3408849,"device":2049},"timestamp":"2018-11-19T17:46:00.866745281Z","ttl":-1},{"source":"/var/log/apache2/fb_error.log","offset":0,"FileStateOS":{"inode":3408848,"device":2049},"timestamp":"2018-11-19T17:46:00.866720037Z","ttl":-1}]

@@ -10,8 +10,3 @@ Docker latest (tested with 18.x)
 
 In order to have vagrant boxes ready:
 vagrant box add ubuntu/xenial64
-
-In order to successfully run the packer scripts:
-
-Inside the packer folder
-ansible-galaxy install -p provisioners/ansible/galaxy -r provisioners/ansible/requirements.yml

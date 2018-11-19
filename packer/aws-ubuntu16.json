@@ -3,7 +3,7 @@
         "aws_access_key": "",
         "aws_secret_key": "",
         "region": "eu-west-1",
-        "source_ami": "ami-0773391ae604c49a4",
+        "source_ami": "ami-0181f8d9b6f098ec4",
         "ami_name": "CTOBootcamp-BCN-Ubuntu16-{{isotime \"2006-01-02-15.04.05\"}}"
     },
     "builders": [
@@ -29,8 +29,7 @@
             "type": "shell",
             "inline": [
                 "sleep 30",
-                "sudo apt -y update",
-                "sudo apt -y upgrade"
+                "sudo apt update && sudo DEBIAN_FRONTEND=noninteractive apt -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confnew' full-upgrade && sudo apt-get autoremove && sudo apt-get autoclean"
             ]
         },
         {

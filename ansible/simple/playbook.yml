@@ -1,0 +1,16 @@
+---
+- name: CTO Bootcamp BCN - Ansible 1
+  hosts: all
+  remote_user: vagrant
+  become: true
+
+  tasks:
+    - name: test conenctivity
+      ping:
+
+    - name: install things
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - git

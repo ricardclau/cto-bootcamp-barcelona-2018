@@ -1,0 +1,109 @@
+{
+  "variables": {
+    "iso_checksum_type": "md5",
+    "build_memory": "2048",
+    "memory": "1024",
+    "build_cpu_cores": "2",
+    "cpu_cores": "1",
+    "ansible_roles_path": "{{template_dir}}/provisioners/ansible/galaxy",
+    "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.5-server-amd64.iso",
+    "iso_checksum": "24636fd103a2a43c95659f1c3c63718e",
+    "preseed_url": "/ubuntu-16.04/preseed.cfg"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "boot_command": [
+        "<enter><wait>",
+        "<f6><esc>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs>",
+        "/install/vmlinuz ",
+        "initrd=/install/initrd.gz ",
+        "auto-install/enable=true ",
+        "debconf/priority=critical ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}{{user `preseed_url`}} ",
+        "<enter>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 10240,
+      "guest_os_type": "Linux_64",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "http_directory": "{{template_dir}}/bootstrap/linux-iso",
+      "output_directory": "{{user `output_directory`}}-{{timestamp}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_url": "{{user `iso_url`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "echo 'shutdown -P now' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
+      "post_shutdown_delay": "120s",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "{{user `build_memory`}}"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "{{user `build_cpu_cores`}}"
+        ]
+      ],
+      "vboxmanage_post": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "{{user `memory`}}"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "{{user `cpu_cores`}}"
+        ]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant'|sudo -S -E bash '{{.Path}}'",
+      "scripts": [
+        "{{template_dir}}/provisioners/scripts/upgrade.sh",
+        "{{template_dir}}/provisioners/scripts/vagrant.sh",
+        "{{template_dir}}/provisioners/scripts/vmtools.sh"
+      ]
+    },
+    {
+      "type": "ansible",
+      "playbook_file": "{{template_dir}}/provisioners/ansible/install-things.yml",
+      "ansible_env_vars": [
+        "ANSIBLE_ROLES_PATH={{user `ansible_roles_path` }}"
+      ],
+      "user": "vagrant",
+      "extra_arguments": [
+        "--extra-vars",
+        "ansible_python_interpreter=/usr/bin/python3"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "compression_level": "9"      
+    }
+  ]
+}

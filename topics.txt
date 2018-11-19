@@ -1,0 +1,48 @@
+Básicamente quería tocar estos temas, obviamente no se puede entrar a fondo en casi nada pero si tenéis alguna cosa en concreto que queráis que toquemos sí o sí y no esté please decidlo y lo intento meter. O si algo no os interesa tanto, lo quitamos o pasamos rápido
+
+10h workshop
+============
+
+Keynote 1
+=========
+- Intro to DevOps
+- Tactical patterns
+
+Keynote 2
+=========
+- Deployments / Rollbacks - Total Automation - Ansistrano
+- CI / CD tools
+
+Keynote 3
+=========
+- Automation y Config Management (with Ansible)
+- Live demos / coding with Ansible in Vagrant
+
+Keynote 4
+=========
+- Images (Packer / AMIs) vs VMs (Virtualbox / Vagrant) vs Containers (Docker)
+- Live demos / coding with Packer examples
+- Live demos / coding with Docker examples
+
+Keynote 5
+=========
+- Cloud vs datacenter pros / cons
+- Software Architecture
+- Cap Theorem
+
+Keynote 6
+=========
+- Logs (using ELK Stack)
+- Docker compose ELK demo
+- Time series (InfluxDB / Cloudwatch + Telegraf + Grafana)
+- Monitoring / Alerting
+
+Keynote 7
+=========
+- Secrets management / Security (Ansible Vault / Hashicorp Vault / Best practices redes)
+- Infosec best practices
+
+Keynote 8
+=========
+- Infrastructure as code con Terraform
+- Live demo / coding with Terraform

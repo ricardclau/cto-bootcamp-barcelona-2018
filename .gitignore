@@ -1,0 +1,16 @@
+# Packer cache and output results
+packer/packer_cache
+packer/packer-*
+packer/provisioners/ansible/galaxy
+packer/*.box
+# Ansible failures
+*.retry
+# Terraform local state + modules
+**/.terraform
+**/terraform.tfstate*
+# Geerlingguy roles
+**/geerlingguy*
+ansible/**/*.log
+**/.vagrant
+# Docker
+docker/docker-elk/**/logs/*.log

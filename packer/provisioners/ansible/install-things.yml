@@ -1,0 +1,16 @@
+---
+- name: Install some packages
+  hosts: all
+  become: true
+
+  tasks:
+    - name: install stuff
+      apt:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - git
+        - htop
+        - curl
+        - zip
+        - unzip

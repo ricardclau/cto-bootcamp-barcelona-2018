@@ -1,0 +1,19 @@
+---
+- name: CTO Bootcamp BCN - Ansible 1
+  hosts: all
+  remote_user: vagrant
+  become: true
+
+  tasks:
+    - name: Add PHP repo
+      apt_repository:
+        repo: "ppa:ondrej/php"
+        state: present
+        update_cache: yes
+
+    - include_role:
+        name: geerlingguy.php
+      vars:
+        php_default_version_debian: "7.2"
+        php_enable_webserver: false
+        php_apc_enable_cli: "1"

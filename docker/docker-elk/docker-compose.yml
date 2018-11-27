@@ -43,13 +43,24 @@ services:
     depends_on:
       - elasticsearch
 
+  filebeat:
+    build:
+      context: filebeat/
+    volumes:
+      - ./app/log:/var/log/apache2
+      - ./filebeat/config:/etc/filebeat
+    networks:
+      - elk
+    depends_on:
+      - logstash
+
   app:
     build:
       context: app/
     volumes:
-      - ./app/config/filebeat.yml:/etc/filebeat/filebeat.yml:ro
       - ./app/php:/var/www/html
       - ./app/config/vhost.conf:/etc/apache2/sites-enabled/000-default.conf:ro
+      - ./app/log:/var/log/apache2
     ports:
       - "80:80"
     networks:

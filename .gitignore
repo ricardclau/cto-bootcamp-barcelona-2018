@@ -13,4 +13,4 @@ packer/*.box
 ansible/**/*.log
 **/.vagrant
 # Docker
-docker/docker-elk/**/logs/*.log
+docker/docker-elk/**/log/*.log
